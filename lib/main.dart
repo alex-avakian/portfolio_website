@@ -63,6 +63,7 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey _aboutMeKey = GlobalKey();
   final GlobalKey _educationKey = GlobalKey();
   final GlobalKey _projectsKey = GlobalKey();
+  final GlobalKey _skillsKey = GlobalKey(); // Add a GlobalKey for the Skills section
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +82,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(width: 30),
             _buildNavItem('Projects', 3, _scrollToProjects),
             const SizedBox(width: 30),
-            _buildNavItem('Skills', 4, null),
+            _buildNavItem('Skills', 4, _scrollToSkills), // Add navigation for the skills section
           ],
         ),
         centerTitle: true,
@@ -298,6 +299,47 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+                 // Skills Section
+                Container(
+                  key: _skillsKey,
+                  padding: const EdgeInsets.all(20.0),
+                  margin: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10),
+                      Text(
+                        'Skills',
+                        style: Theme.of(context).textTheme.displayLarge!.copyWith(color: Colors.amber[800], fontSize: 28),
+                      ),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        height: 150, // Adjust height as needed
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            _buildSkillItem('assets/skill1.png', 'Skill 1'),
+                            _buildSkillItem('assets/skill2.png', 'Skill 2'),
+                            _buildSkillItem('assets/skill3.png', 'Skill 3'),
+                            _buildSkillItem('assets/skill4.png', 'Skill 4'),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           );
@@ -367,6 +409,19 @@ class _HomePageState extends State<HomePage> {
     final RenderBox? projectsRenderBox = _projectsKey.currentContext?.findRenderObject() as RenderBox?;
     if (projectsRenderBox != null) {
       final offset = projectsRenderBox.localToGlobal(Offset.zero, ancestor: context.findRenderObject());
+      _scrollController.animateTo(
+        offset.dy + _scrollController.offset - kToolbarHeight,
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+  
+  // Add scroll function for Skills section
+  void _scrollToSkills() {
+    final RenderBox? skillsRenderBox = _skillsKey.currentContext?.findRenderObject() as RenderBox?;
+    if (skillsRenderBox != null) {
+      final offset = skillsRenderBox.localToGlobal(Offset.zero, ancestor: context.findRenderObject());
       _scrollController.animateTo(
         offset.dy + _scrollController.offset - kToolbarHeight,
         duration: const Duration(seconds: 1),
@@ -501,6 +556,28 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+  // Widget for individual skill items
+  Widget _buildSkillItem(String imageAsset, String skillName) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            imageAsset,
+            width: 80, 
+            height: 80,
+            fit: BoxFit.contain,
+          ),
+          const SizedBox(height: 10),
+          Text(
+            skillName,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey[700]),
+          ),
+        ],
       ),
     );
   }
