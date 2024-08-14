@@ -192,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  'I am Arvind Rajiv, an aerospace engineer with a passion for designing, analyzing, and optimizing aircraft and spacecraft systems. My academic journey includes a BTech and MEng in Aerospace Engineering, where I gained a solid foundation in aerodynamics, propulsion, avionics, and structural mechanics.',
+                                  'I am Alex Avakian, an aerospace engineer with a passion for designing, analyzing, and optimizing aircraft and spacecraft systems. My academic journey includes a BTech and MEng in Aerospace Engineering, where I gained a solid foundation in aerodynamics, propulsion, avionics, and structural mechanics.',
                                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey[700]),
                                   textAlign: TextAlign.center,
                                 ),
