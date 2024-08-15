@@ -203,8 +203,8 @@ class _HomePageState extends State<HomePage> {
                                 color: Colors.amber[800], fontSize: 28),
                       ),
                       const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      // Modified "About Me" Section
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           CircleAvatar(
@@ -214,29 +214,58 @@ class _HomePageState extends State<HomePage> {
                           ),
                           SizedBox(
                               width: MediaQuery.of(context).size.width * 0.05),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'I am Alex Avakian, an aerospace engineer with a passion for designing, analyzing, and optimizing aircraft and spacecraft systems. My academic journey includes a BTech and MEng in Aerospace Engineering, where I gained a solid foundation in aerodynamics, propulsion, avionics, and structural mechanics.',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(color: Colors.grey[700]),
-                                  textAlign: TextAlign.center,
-                                ),
-                                const SizedBox(height: 20),
-                                Text(
-                                  'Throughout my career, I have worked on several key projects that demonstrate my expertise and dedication to the field. My goal is to contribute to advancements in aerospace technology, pushing the boundaries of what is possible in aviation and space exploration.',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(color: Colors.grey[700]),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
+                          Column( // Aligned texts under title
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'I am Alex Avakian, an aerospace engineer with a passion for designing, analyzing, and optimizing aircraft and spacecraft systems. My academic journey includes a BTech and MEng in Aerospace Engineering, where I gained a solid foundation in aerodynamics, propulsion, avionics, and structural mechanics.',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(color: Colors.grey[700]),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 20),
+                              Text(
+                                'Throughout my career, I have worked on several key projects that demonstrate my expertise and dedication to the field. My goal is to contribute to advancements in aerospace technology, pushing the boundaries of what is possible in aviation and space exploration.',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(color: Colors.grey[700]),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 20),
+                              Text(
+                                'Current Goals',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(
+                                      color: Colors.amber[800],
+                                      // Removed underline
+                                    ),
+                              ),
+                              const SizedBox(height: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '- Earn PMP license',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(color: Colors.grey[700]),
+                                  ),
+                                  Text(
+                                    '- Earn MATLAB certification',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(color: Colors.grey[700]),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ],
                       ),
