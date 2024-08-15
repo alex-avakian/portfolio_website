@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart'; // Import url_launcher package
 
 void main() {
   runApp(const MyApp());
@@ -63,7 +64,7 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey _aboutMeKey = GlobalKey();
   final GlobalKey _educationKey = GlobalKey();
   final GlobalKey _projectsKey = GlobalKey();
-  final GlobalKey _skillsKey = GlobalKey(); // Add a GlobalKey for the Skills section
+  final GlobalKey _skillsKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -82,14 +83,16 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(width: 30),
             _buildNavItem('Projects', 3, _scrollToProjects),
             const SizedBox(width: 30),
-            _buildNavItem('Skills', 4, _scrollToSkills), // Add navigation for the skills section
+            _buildNavItem('Skills', 4, _scrollToSkills),
           ],
         ),
         centerTitle: true,
         actions: [
           IconButton(
             icon: Icon(
-              Theme.of(context).brightness == Brightness.dark ? Icons.light_mode : Icons.dark_mode,
+              Theme.of(context).brightness == Brightness.dark
+                  ? Icons.light_mode
+                  : Icons.dark_mode,
               color: Colors.white,
             ),
             onPressed: widget.onToggleTheme,
@@ -123,22 +126,35 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Text(
                               'Alex Sasoon Avakian',
-                              style: Theme.of(context).textTheme.displayLarge!.copyWith(color: Colors.white),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .copyWith(color: Colors.white),
                             ),
                             const SizedBox(height: 20),
                             Text(
                               'Graduate Student',
-                              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(color: Colors.white),
                             ),
                             const SizedBox(height: 130),
                             Text(
                               'Aerospace/System Engineering Portfolio',
-                              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(color: Colors.white),
                             ),
                             const SizedBox(height: 10),
                             Text(
-                              'Systems Engineering | Program Management',
-                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white),
+                              'Aerospace Engineering | Systems Engineering | Program Management',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(color: Colors.white),
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         ),
@@ -148,7 +164,11 @@ class _HomePageState extends State<HomePage> {
                         right: 10,
                         child: Text(
                           'Taken from the NASA Images and Video Library',
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white70, fontSize: 12),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                  color: Colors.white70, fontSize: 12),
                         ),
                       ),
                     ],
@@ -176,7 +196,11 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 10),
                       Text(
                         'About Me',
-                        style: Theme.of(context).textTheme.displayLarge!.copyWith(color: Colors.amber[800], fontSize: 28),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(
+                                color: Colors.amber[800], fontSize: 28),
                       ),
                       const SizedBox(height: 20),
                       Row(
@@ -185,22 +209,30 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           CircleAvatar(
                             radius: MediaQuery.of(context).size.width * 0.1,
-                            backgroundImage: const AssetImage('assets/profile_picture.jpg'),
+                            backgroundImage: const AssetImage(
+                                'assets/profile_picture.jpg'),
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width * 0.05),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.05),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
                                   'I am Alex Avakian, an aerospace engineer with a passion for designing, analyzing, and optimizing aircraft and spacecraft systems. My academic journey includes a BTech and MEng in Aerospace Engineering, where I gained a solid foundation in aerodynamics, propulsion, avionics, and structural mechanics.',
-                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey[700]),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(color: Colors.grey[700]),
                                   textAlign: TextAlign.center,
                                 ),
                                 const SizedBox(height: 20),
                                 Text(
                                   'Throughout my career, I have worked on several key projects that demonstrate my expertise and dedication to the field. My goal is to contribute to advancements in aerospace technology, pushing the boundaries of what is possible in aviation and space exploration.',
-                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey[700]),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(color: Colors.grey[700]),
                                   textAlign: TextAlign.center,
                                 ),
                               ],
@@ -233,7 +265,11 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 10),
                       Text(
                         'Education',
-                        style: Theme.of(context).textTheme.displayLarge!.copyWith(color: Colors.amber[800], fontSize: 28),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(
+                                color: Colors.amber[800], fontSize: 28),
                       ),
                       const SizedBox(height: 20),
                       _buildEducationItem(
@@ -284,22 +320,30 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 10),
                       Text(
                         'Projects',
-                        style: Theme.of(context).textTheme.displayLarge!.copyWith(color: Colors.amber[800], fontSize: 28),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(
+                                color: Colors.amber[800], fontSize: 28),
                       ),
                       const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildProjectBox('assets/project1.jpg', 'Project 1 Title', 'Project 1 Description'),
-                          _buildProjectBox('assets/project2.jpg', 'Project 2 Title', 'Project 2 Description'),
-                          _buildProjectBox('assets/project3.jpg', 'Project 3 Title', 'Project 3 Description'),
-                          _buildProjectBox('assets/project4.jpg', 'Project 4 Title', 'Project 4 Description'),
+                          _buildProjectBox('assets/project1.jpg',
+                              'Project 1 Title', 'Project 1 Description', 'https://www.google.com/drive/'), // Added link to _buildProjectBox
+                          _buildProjectBox('assets/project2.jpg',
+                              'Project 2 Title', 'Project 2 Description', ''),
+                          _buildProjectBox('assets/project3.jpg',
+                              'Project 3 Title', 'Project 3 Description', ''),
+                          _buildProjectBox('assets/project4.jpg',
+                              'Project 4 Title', 'Project 4 Description', ''),
                         ],
                       ),
                     ],
                   ),
                 ),
-                 // Skills Section
+                // Skills Section
                 Container(
                   key: _skillsKey,
                   padding: const EdgeInsets.all(20.0),
@@ -322,7 +366,11 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 10),
                       Text(
                         'Skills',
-                        style: Theme.of(context).textTheme.displayLarge!.copyWith(color: Colors.amber[800], fontSize: 28),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(
+                                color: Colors.amber[800], fontSize: 28),
                       ),
                       const SizedBox(height: 20),
                       SizedBox(
@@ -348,29 +396,41 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildNavItem(String text, int index, VoidCallback? onTap, [IconData? icon]) {
+  Widget _buildNavItem(String text, int index, VoidCallback? onTap,
+      [IconData? icon]) {
     return InkWell(
       onTap: onTap,
       onHover: (isHovering) {
         _onHover(isHovering ? index : -1);
       },
-      child: Row(
-        children: [
-          if (icon != null) ...[
-            Icon(icon, color: _hoveredIndex == index ? Colors.amber[800] : Colors.white),
-            if (text.isNotEmpty) const SizedBox(width: 5),
-          ],
-          if (text.isNotEmpty)
-            Text(
-              text,
-              style: TextStyle(
-                color: _hoveredIndex == index ? Colors.amber[800] : Colors.white,
-                fontFamily: 'Roboto',
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
+      child: Container(
+        padding:
+            const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          border: _hoveredIndex == index
+              ? Border.all(color: Colors.amber, width: 2) // Highlighting effect
+              : null,
+        ),
+        child: Row(
+          children: [
+            if (icon != null) ...[
+              Icon(icon,
+                  color: _hoveredIndex == index ? Colors.white : Colors.white),
+              if (text.isNotEmpty) const SizedBox(width: 5),
+            ],
+            if (text.isNotEmpty)
+              Text(
+                text,
+                style: TextStyle(
+                  color: _hoveredIndex == index ? Colors.white : Colors.white,
+                  fontFamily: 'Roboto',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -382,9 +442,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _scrollToAboutMe() {
-    final RenderBox? aboutMeRenderBox = _aboutMeKey.currentContext?.findRenderObject() as RenderBox?;
+    final RenderBox? aboutMeRenderBox =
+        _aboutMeKey.currentContext?.findRenderObject() as RenderBox?;
     if (aboutMeRenderBox != null) {
-      final offset = aboutMeRenderBox.localToGlobal(Offset.zero, ancestor: context.findRenderObject());
+      final offset = aboutMeRenderBox.localToGlobal(Offset.zero,
+          ancestor: context.findRenderObject());
       _scrollController.animateTo(
         offset.dy + _scrollController.offset - kToolbarHeight,
         duration: const Duration(seconds: 1),
@@ -394,9 +456,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _scrollToEducation() {
-    final RenderBox? educationRenderBox = _educationKey.currentContext?.findRenderObject() as RenderBox?;
+    final RenderBox? educationRenderBox =
+        _educationKey.currentContext?.findRenderObject() as RenderBox?;
     if (educationRenderBox != null) {
-      final offset = educationRenderBox.localToGlobal(Offset.zero, ancestor: context.findRenderObject());
+      final offset = educationRenderBox.localToGlobal(Offset.zero,
+          ancestor: context.findRenderObject());
       _scrollController.animateTo(
         offset.dy + _scrollController.offset - kToolbarHeight,
         duration: const Duration(seconds: 1),
@@ -406,9 +470,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _scrollToProjects() {
-    final RenderBox? projectsRenderBox = _projectsKey.currentContext?.findRenderObject() as RenderBox?;
+    final RenderBox? projectsRenderBox =
+        _projectsKey.currentContext?.findRenderObject() as RenderBox?;
     if (projectsRenderBox != null) {
-      final offset = projectsRenderBox.localToGlobal(Offset.zero, ancestor: context.findRenderObject());
+      final offset = projectsRenderBox.localToGlobal(Offset.zero,
+          ancestor: context.findRenderObject());
       _scrollController.animateTo(
         offset.dy + _scrollController.offset - kToolbarHeight,
         duration: const Duration(seconds: 1),
@@ -416,12 +482,13 @@ class _HomePageState extends State<HomePage> {
       );
     }
   }
-  
-  // Add scroll function for Skills section
+
   void _scrollToSkills() {
-    final RenderBox? skillsRenderBox = _skillsKey.currentContext?.findRenderObject() as RenderBox?;
+    final RenderBox? skillsRenderBox =
+        _skillsKey.currentContext?.findRenderObject() as RenderBox?;
     if (skillsRenderBox != null) {
-      final offset = skillsRenderBox.localToGlobal(Offset.zero, ancestor: context.findRenderObject());
+      final offset = skillsRenderBox.localToGlobal(Offset.zero,
+          ancestor: context.findRenderObject());
       _scrollController.animateTo(
         offset.dy + _scrollController.offset - kToolbarHeight,
         duration: const Duration(seconds: 1),
@@ -438,7 +505,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildEducationItem(String logoAsset, String schoolName, String details, List<String> coursework) {
+  Widget _buildEducationItem(String logoAsset, String schoolName,
+      String details, List<String> coursework) {
     return Container(
       padding: const EdgeInsets.all(16.0),
       margin: const EdgeInsets.symmetric(vertical: 8.0),
@@ -469,22 +537,34 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Text(
                   schoolName,
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.amber[800]),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(color: Colors.amber[800]),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   details,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey[700]),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: Colors.grey[700]),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   'Relevant Coursework:',
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.amber[800]),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: Colors.amber[800]),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   coursework.join(', '),
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey[700]),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: Colors.grey[700]),
                 ),
               ],
             ),
@@ -494,7 +574,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildProjectBox(String imageAsset, String title, String description) {
+  Widget _buildProjectBox(String imageAsset, String title, String description, String link) {
     return MouseRegion(
       onEnter: (_) => setState(() {
         _hoveredIndex = title.hashCode;
@@ -502,63 +582,83 @@ class _HomePageState extends State<HomePage> {
       onExit: (_) => setState(() {
         _hoveredIndex = -1;
       }),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        width: MediaQuery.of(context).size.width * 0.2,
-        height: MediaQuery.of(context).size.height * 0.3,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          image: DecorationImage(
-            image: AssetImage(imageAsset),
-            fit: BoxFit.cover,
-            colorFilter: _hoveredIndex == title.hashCode
-                ? ColorFilter.mode(Colors.black.withOpacity(0.3), BlendMode.darken)
-                : null,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: _hoveredIndex == title.hashCode
-                  ? Colors.amber.withOpacity(0.8)
-                  : Colors.grey.withOpacity(0.3),
-              spreadRadius: 2,
-              blurRadius: 7,
-              offset: const Offset(0, 3),
+      child: GestureDetector( // Make the box clickable
+        onTap: () async {
+          if (link.isNotEmpty) {
+            final Uri url = Uri.parse(link);
+            if (await canLaunchUrl(url)) {
+              await launchUrl(url);
+            } else {
+              print('Could not launch $url'); // Handle error if link is invalid
+            }
+          }
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          width: MediaQuery.of(context).size.width * 0.2,
+          height: MediaQuery.of(context).size.height * 0.3,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            image: DecorationImage(
+              image: AssetImage(imageAsset),
+              fit: BoxFit.cover,
+              colorFilter: _hoveredIndex == title.hashCode
+                  ? ColorFilter.mode(
+                      Colors.black.withOpacity(0.3), BlendMode.darken)
+                  : null,
             ),
-          ],
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              bottom: 10,
-              left: 10,
-              right: 10,
-              child: Container(
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.6),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      description,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white),
-                    ),
-                  ],
+            boxShadow: [
+              BoxShadow(
+                color: _hoveredIndex == title.hashCode
+                    ? Colors.amber.withOpacity(0.8)
+                    : Colors.grey.withOpacity(0.3),
+                spreadRadius: 2,
+                blurRadius: 7,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Stack(
+            children: [
+              Positioned(
+                bottom: 10,
+                left: 10,
+                right: 10,
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.6),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(color: Colors.white),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        description,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(color: Colors.white),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
+
   // Widget for individual skill items
   Widget _buildSkillItem(String imageAsset, String skillName) {
     return Container(
@@ -568,14 +668,17 @@ class _HomePageState extends State<HomePage> {
         children: [
           Image.asset(
             imageAsset,
-            width: 80, 
+            width: 80,
             height: 80,
             fit: BoxFit.contain,
           ),
           const SizedBox(height: 10),
           Text(
             skillName,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey[700]),
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(color: Colors.grey[700]),
           ),
         ],
       ),
