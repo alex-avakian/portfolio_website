@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey _educationKey = GlobalKey();
   final GlobalKey _projectsKey = GlobalKey();
   final GlobalKey _skillsKey = GlobalKey();
+  final GlobalKey _getInTouchKey = GlobalKey(); // Add a key for Contact Information
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +85,8 @@ class _HomePageState extends State<HomePage> {
             _buildNavItem('Projects', 3, _scrollToProjects),
             const SizedBox(width: 30),
             _buildNavItem('Skills', 4, _scrollToSkills),
+            const SizedBox(width: 30),
+            _buildNavItem('Contact Information', 5, _scrollToGetInTouch), // Add navigation to Contact Information
           ],
         ),
         centerTitle: true,
@@ -417,6 +420,56 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+                // Contact Information Section
+                Container(
+                  key: _getInTouchKey,
+                  padding: const EdgeInsets.all(20.0),
+                  margin: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: Colors.grey.shade300, width: 2),
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center, 
+                    children: [
+                      Text(
+                        'Contact Information',
+                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                              color: Colors.amber[800],
+                              fontSize: 28,
+                            ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'Feel free to contact, I\'d love to hear from you.', // Updated Text
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(color: Colors.grey[700]),
+                      ),
+                      const SizedBox(height: 20),
+                      IconButton( 
+                        iconSize: 64, 
+                        onPressed: () { 
+                          // TODO: Add functionality to open resume
+                        }, 
+                        icon: Icon(Icons.picture_as_pdf, color: Colors.amber[800]),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildSocialIcon(Icons.email, 'mailto:alexavakian01@gmail.com'),
+                          const SizedBox(width: 20),
+                          _buildSocialIcon(Icons.link, 'www.linkedin.com/in/alex-avakian'),
+                          const SizedBox(width: 20),
+                          _buildSocialIcon(Icons.work, 'https://www.indeed.com/'),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           );
@@ -464,6 +517,22 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // Helper function to build social icons
+  Widget _buildSocialIcon(IconData icon, String link) {
+    return IconButton(
+      iconSize: 48,
+      onPressed: () async {
+        final Uri url = Uri.parse(link);
+        if (await canLaunchUrl(url)) {
+          await launchUrl(url);
+        } else {
+          print('Could not launch $link'); 
+        }
+      },
+      icon: Icon(icon, color: Colors.amber[800]),
+    );
+  }
+
   void _onHover(int index) {
     setState(() {
       _hoveredIndex = index;
@@ -471,59 +540,23 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _scrollToAboutMe() {
-    final RenderBox? aboutMeRenderBox =
-        _aboutMeKey.currentContext?.findRenderObject() as RenderBox?;
-    if (aboutMeRenderBox != null) {
-      final offset = aboutMeRenderBox.localToGlobal(Offset.zero,
-          ancestor: context.findRenderObject());
-      _scrollController.animateTo(
-        offset.dy + _scrollController.offset - kToolbarHeight,
-        duration: const Duration(seconds: 1),
-        curve: Curves.easeInOut,
-      );
-    }
+    _scrollToWidget(_aboutMeKey);
   }
 
   void _scrollToEducation() {
-    final RenderBox? educationRenderBox =
-        _educationKey.currentContext?.findRenderObject() as RenderBox?;
-    if (educationRenderBox != null) {
-      final offset = educationRenderBox.localToGlobal(Offset.zero,
-          ancestor: context.findRenderObject());
-      _scrollController.animateTo(
-        offset.dy + _scrollController.offset - kToolbarHeight,
-        duration: const Duration(seconds: 1),
-        curve: Curves.easeInOut,
-      );
-    }
+    _scrollToWidget(_educationKey);
   }
 
   void _scrollToProjects() {
-    final RenderBox? projectsRenderBox =
-        _projectsKey.currentContext?.findRenderObject() as RenderBox?;
-    if (projectsRenderBox != null) {
-      final offset = projectsRenderBox.localToGlobal(Offset.zero,
-          ancestor: context.findRenderObject());
-      _scrollController.animateTo(
-        offset.dy + _scrollController.offset - kToolbarHeight,
-        duration: const Duration(seconds: 1),
-        curve: Curves.easeInOut,
-      );
-    }
+    _scrollToWidget(_projectsKey);
   }
 
   void _scrollToSkills() {
-    final RenderBox? skillsRenderBox =
-        _skillsKey.currentContext?.findRenderObject() as RenderBox?;
-    if (skillsRenderBox != null) {
-      final offset = skillsRenderBox.localToGlobal(Offset.zero,
-          ancestor: context.findRenderObject());
-      _scrollController.animateTo(
-        offset.dy + _scrollController.offset - kToolbarHeight,
-        duration: const Duration(seconds: 1),
-        curve: Curves.easeInOut,
-      );
-    }
+    _scrollToWidget(_skillsKey);
+  }
+
+  void _scrollToGetInTouch() { 
+    _scrollToWidget(_getInTouchKey);
   }
 
   void _scrollToTop() {
@@ -532,6 +565,20 @@ class _HomePageState extends State<HomePage> {
       duration: const Duration(seconds: 1),
       curve: Curves.easeInOut,
     );
+  }
+
+  void _scrollToWidget(GlobalKey key) {
+    final RenderBox? renderBox =
+        key.currentContext?.findRenderObject() as RenderBox?;
+    if (renderBox != null) {
+      final offset = renderBox.localToGlobal(Offset.zero,
+          ancestor: context.findRenderObject());
+      _scrollController.animateTo(
+        offset.dy + _scrollController.offset - kToolbarHeight,
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   Widget _buildEducationItem(String logoAsset, String schoolName,
