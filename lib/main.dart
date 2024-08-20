@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart'; // Import url_launcher package
+import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Import font_awesome_flutter package
 
 void main() {
   runApp(const MyApp());
@@ -253,6 +254,13 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
+                                    '- Complete Masters Degree in Systems Engineering',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(color: Colors.grey[700]),
+                                  ),
+                                  Text(
                                     '- Earn PMP license',
                                     style: Theme.of(context)
                                         .textTheme
@@ -363,7 +371,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           _buildProjectBox('assets/project1.jpg',
-                              'Project 1 Title', 'Project 1 Description', 'https://www.google.com/drive/'), // Added link to _buildProjectBox
+                              'Project 1 Title', 'Project 1 Description', 'https://drive.google.com/drive/folders/1KEWp_wwPiVi3esawHfHRjir7Vwp1mYWH?usp=drive_link'), // Added link to _buildProjectBox
                           _buildProjectBox('assets/project2.jpg',
                               'Project 2 Title', 'Project 2 Description', ''),
                           _buildProjectBox('assets/project3.jpg',
@@ -442,29 +450,24 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        'Feel free to contact, I\'d love to hear from you.', // Updated Text
+                        'Feel free to contact me, I\'d love to hear from you.', // Updated Text
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
                             .copyWith(color: Colors.grey[700]),
                       ),
                       const SizedBox(height: 20),
-                      IconButton( 
-                        iconSize: 64, 
-                        onPressed: () { 
-                          // TODO: Add functionality to open resume
-                        }, 
-                        icon: Icon(Icons.picture_as_pdf, color: Colors.amber[800]),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
+                      Row( 
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          _buildSocialIcon(Icons.description, 'https://drive.google.com/file/d/1lVtsfuYTCQGX7-xdgjADoHJ0LP2TZ-q1/view?usp=drive_link'), // Document Icon
+                          const SizedBox(width: 20),
                           _buildSocialIcon(Icons.email, 'mailto:alexavakian01@gmail.com'),
                           const SizedBox(width: 20),
-                          _buildSocialIcon(Icons.link, 'www.linkedin.com/in/alex-avakian'),
+                          _buildSocialIcon(Icons.message, 'sms:+18182399033'), // Text Message Icon
                           const SizedBox(width: 20),
-                          _buildSocialIcon(Icons.work, 'https://www.indeed.com/'),
+                          _buildSocialIcon(FontAwesomeIcons.linkedin, 'https://www.linkedin.com/in/alex-avakian'), // LinkedIn with FontAwesome
+                          // Removed Indeed
                         ],
                       ),
                     ],
@@ -522,6 +525,9 @@ class _HomePageState extends State<HomePage> {
     return IconButton(
       iconSize: 48,
       onPressed: () async {
+        if (link.startsWith('www.')) { 
+          link = 'https://$link'; // Add https:// if it's missing
+        }
         final Uri url = Uri.parse(link);
         if (await canLaunchUrl(url)) {
           await launchUrl(url);
@@ -529,7 +535,7 @@ class _HomePageState extends State<HomePage> {
           print('Could not launch $link'); 
         }
       },
-      icon: Icon(icon, color: Colors.amber[800]),
+      icon: FaIcon(icon, color: Colors.amber[800]), // Wrap FontAwesome icons in FaIcon
     );
   }
 
