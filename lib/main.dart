@@ -68,6 +68,10 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey _skillsKey = GlobalKey();
   final GlobalKey _getInTouchKey = GlobalKey(); // Add a key for Contact Information
 
+  // Define icon colors
+  final Color mainSectionIconColor = Colors.white;
+  final Color contactInfoIconColor = const Color.fromARGB(255, 255, 148, 0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,6 +164,20 @@ class _HomePageState extends State<HomePage> {
                                   .copyWith(color: Colors.white),
                               textAlign: TextAlign.center,
                             ),
+                            const SizedBox(height: 10),
+                            // Copied Contact Icons to Main Section (using mainSectionIconColor)
+                            Row( 
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                _buildSocialIcon(Icons.description, 'https://drive.google.com/file/d/1lVtsfuYTCQGX7-xdgjADoHJ0LP2TZ-q1/view?usp=drive_link', mainSectionIconColor), // Document Icon
+                                const SizedBox(width: 20),
+                                _buildSocialIcon(Icons.email, 'mailto:alexavakian01@gmail.com', mainSectionIconColor),
+                                const SizedBox(width: 20),
+                                _buildSocialIcon(Icons.message, 'sms:+18182399033', mainSectionIconColor), // Text Message Icon
+                                const SizedBox(width: 20),
+                                _buildSocialIcon(FontAwesomeIcons.linkedin, 'https://www.linkedin.com/in/alex-avakian', mainSectionIconColor), // LinkedIn with FontAwesome
+                              ],
+                            ), 
                           ],
                         ),
                       ),
@@ -268,7 +286,7 @@ class _HomePageState extends State<HomePage> {
                                         .copyWith(color: Colors.grey[700]),
                                   ),
                                   Text(
-                                    '- Earn MATLAB certification',
+                                    '- Earn Agile certification',
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium!
@@ -450,7 +468,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        'Feel free to contact me, I\'d love to hear from you.', // Updated Text
+                        'Feel free to contact me, I\'d love to hear from you.', 
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
@@ -460,13 +478,13 @@ class _HomePageState extends State<HomePage> {
                       Row( 
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          _buildSocialIcon(Icons.description, 'https://drive.google.com/file/d/1lVtsfuYTCQGX7-xdgjADoHJ0LP2TZ-q1/view?usp=drive_link'), // Document Icon
+                          // Removed Resume Icon
                           const SizedBox(width: 20),
-                          _buildSocialIcon(Icons.email, 'mailto:alexavakian01@gmail.com'),
+                          _buildSocialIcon(Icons.email, 'mailto:alexavakian01@gmail.com', contactInfoIconColor),
                           const SizedBox(width: 20),
-                          _buildSocialIcon(Icons.message, 'sms:+18182399033'), // Text Message Icon
+                          _buildSocialIcon(Icons.message, 'sms:+18182399033', contactInfoIconColor), // Text Message Icon
                           const SizedBox(width: 20),
-                          _buildSocialIcon(FontAwesomeIcons.linkedin, 'https://www.linkedin.com/in/alex-avakian'), // LinkedIn with FontAwesome
+                          _buildSocialIcon(FontAwesomeIcons.linkedin, 'https://www.linkedin.com/in/alex-avakian', contactInfoIconColor), // LinkedIn with FontAwesome
                           // Removed Indeed
                         ],
                       ),
@@ -494,7 +512,7 @@ class _HomePageState extends State<HomePage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           border: _hoveredIndex == index
-              ? Border.all(color: Colors.amber, width: 2) // Highlighting effect
+              ? Border.all(color: Colors.white, width: 2) // Highlighting effect
               : null,
         ),
         child: Row(
@@ -521,7 +539,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   // Helper function to build social icons
-  Widget _buildSocialIcon(IconData icon, String link) {
+  Widget _buildSocialIcon(IconData icon, String link, [Color iconColor = Colors.amber]) { // Added optional color parameter
     return IconButton(
       iconSize: 48,
       onPressed: () async {
@@ -535,7 +553,7 @@ class _HomePageState extends State<HomePage> {
           print('Could not launch $link'); 
         }
       },
-      icon: FaIcon(icon, color: Colors.amber[800]), // Wrap FontAwesome icons in FaIcon
+      icon: FaIcon(icon, color: iconColor), // Use the provided color or default to amber
     );
   }
 
