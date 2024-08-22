@@ -366,14 +366,10 @@ class _HomePageState extends State<HomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildProjectBox('assets/project1.jpg',
-                              'Project 1 Title', 'Project 1 Description', 'https://drive.google.com/drive/folders/1KEWp_wwPiVi3esawHfHRjir7Vwp1mYWH?usp=drive_link'), // Added link to _buildProjectBox
-                          _buildProjectBox('assets/project2.jpg',
-                              'Project 2 Title', 'Project 2 Description', ''),
-                          _buildProjectBox('assets/project3.jpg',
-                              'Project 3 Title', 'Project 3 Description', ''),
-                          _buildProjectBox('assets/project4.jpg',
-                              'Project 4 Title', 'Project 4 Description', ''),
+                          _buildProjectBox('assets/project1.jpg', 'Project 1 Title', 'https://drive.google.com/drive/folders/1KEWp_wwPiVi3esawHfHRjir7Vwp1mYWH?usp=drive_link'), 
+                          _buildProjectBox('assets/project2.jpg', 'Project 2 Title', 'https://www.google.com/'), 
+                          _buildProjectBox('assets/project3.jpg', 'Project 3 Title', 'https://www.google.com/'), 
+                          _buildProjectBox('assets/project4.jpg', 'Project 4 Title', 'https://www.google.com/'), 
                         ],
                       ),
                     ],
@@ -570,15 +566,17 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _scrollToWidget(GlobalKey key) {
-    final RenderBox? renderBox =
-        key.currentContext?.findRenderObject() as RenderBox?;
+    final RenderBox? renderBox = key.currentContext?.findRenderObject() as RenderBox?;
     if (renderBox != null) {
-      final offset = renderBox.localToGlobal(Offset.zero,
-          ancestor: context.findRenderObject());
+      final offset = renderBox.localToGlobal(Offset.zero, ancestor: context.findRenderObject());
+
+      // Calculate the maximum scroll extent
       double maxScrollExtent = _scrollController.position.maxScrollExtent;
+
+      // Calculate the target scroll position
       double targetPosition = offset.dy + _scrollController.offset - kToolbarHeight;
 
-      // Adjust the target position if it exceeds the maximum scrollable extent
+      // Adjust the target position if it exceeds the maximum scroll extent
       if (targetPosition > maxScrollExtent) {
         targetPosition = maxScrollExtent;
       }
@@ -660,22 +658,22 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildProjectBox(String imageAsset, String title, String description, String link) {
+  Widget _buildProjectBox(String imageAsset, String title, String link) {
     return MouseRegion(
       onEnter: (_) => setState(() {
-        _hoveredIndex = title.hashCode;
+        _hoveredIndex = title.hashCode; // Use title for hover index
       }),
       onExit: (_) => setState(() {
         _hoveredIndex = -1;
       }),
-      child: GestureDetector( // Make the box clickable
+      child: GestureDetector( 
         onTap: () async {
           if (link.isNotEmpty) {
             final Uri url = Uri.parse(link);
             if (await canLaunchUrl(url)) {
               await launchUrl(url);
             } else {
-              print('Could not launch $url'); // Handle error if link is invalid
+              print('Could not launch $url'); 
             }
           }
         },
@@ -688,10 +686,6 @@ class _HomePageState extends State<HomePage> {
             image: DecorationImage(
               image: AssetImage(imageAsset),
               fit: BoxFit.cover,
-              colorFilter: _hoveredIndex == title.hashCode
-                  ? ColorFilter.mode(
-                      Colors.black.withOpacity(0.3), BlendMode.darken)
-                  : null,
             ),
             boxShadow: [
               BoxShadow(
@@ -704,41 +698,15 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          child: Stack(
-            children: [
-              Positioned(
-                bottom: 10,
-                left: 10,
-                right: 10,
-                child: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.6),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge!
-                            .copyWith(color: Colors.white),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        description,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
+          child: Center( // Center the title text
+            child: AnimatedOpacity(
+              opacity: _hoveredIndex == title.hashCode ? 1.0 : 0.0, 
+              duration: const Duration(milliseconds: 300),
+              child: Text(
+                title,
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white),
               ),
-            ],
+            ),
           ),
         ),
       ),
