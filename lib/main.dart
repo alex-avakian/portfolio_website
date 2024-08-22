@@ -6,27 +6,14 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget { // Changed to StatelessWidget
   const MyApp({super.key});
-
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  ThemeMode _themeMode = ThemeMode.light;
-
-  void _toggleTheme() {
-    setState(() {
-      _themeMode = _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'RV Aerospace',
-      theme: ThemeData(
+      theme: ThemeData( // This theme is now irrelevant
         primarySwatch: Colors.blueGrey,
         textTheme: const TextTheme(
           displayLarge: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold),
@@ -44,16 +31,14 @@ class _MyAppState extends State<MyApp> {
         ),
         brightness: Brightness.dark,
       ),
-      themeMode: _themeMode,
-      home: HomePage(onToggleTheme: _toggleTheme),
+      themeMode: ThemeMode.dark, // Set dark mode as default
+      home: const HomePage(), // Removed onToggleTheme 
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-  final VoidCallback onToggleTheme;
-
-  const HomePage({super.key, required this.onToggleTheme});
+  const HomePage({super.key}); // Removed onToggleTheme
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -70,7 +55,10 @@ class _HomePageState extends State<HomePage> {
 
   // Define icon colors
   final Color mainSectionIconColor = Colors.white;
-  final Color contactInfoIconColor = const Color.fromARGB(255, 255, 148, 0);
+  final Color contactInfoIconColor = Colors.white;
+
+  // Define the off-white color for the boxes
+  final Color boxBackgroundColor = const Color.fromARGB(255, 224, 224, 224)!; // Dark white
 
   @override
   Widget build(BuildContext context) {
@@ -96,15 +84,7 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: Icon(
-              Theme.of(context).brightness == Brightness.dark
-                  ? Icons.light_mode
-                  : Icons.dark_mode,
-              color: Colors.white,
-            ),
-            onPressed: widget.onToggleTheme,
-          ),
+          // Removed Dark/Light Mode button
         ],
       ),
       body: LayoutBuilder(
@@ -202,7 +182,7 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: Colors.white,
+                    color: boxBackgroundColor, // Use the off-white color
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.5),
@@ -225,7 +205,6 @@ class _HomePageState extends State<HomePage> {
                                 color: Colors.amber[800], fontSize: 28),
                       ),
                       const SizedBox(height: 20),
-                      // Modified "About Me" Section
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -264,7 +243,6 @@ class _HomePageState extends State<HomePage> {
                                     .titleLarge!
                                     .copyWith(
                                       color: Colors.amber[800],
-                                      // Removed underline
                                     ),
                               ),
                               const SizedBox(height: 10),
@@ -307,7 +285,7 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: Colors.white,
+                    color: boxBackgroundColor, // Use the off-white color
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.5),
@@ -362,7 +340,7 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: Colors.white,
+                    color: boxBackgroundColor, // Use the off-white color
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.5),
@@ -408,7 +386,7 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: Colors.white,
+                    color: boxBackgroundColor, // Use the off-white color
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.5),
@@ -462,7 +440,7 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         'Contact Information',
                         style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                              color: Colors.amber[800],
+                              color: Colors.white,
                               fontSize: 28,
                             ),
                       ),
