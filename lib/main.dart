@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget { // Changed to StatelessWidget
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'RV Aerospace',
-      theme: ThemeData( // This theme is now irrelevant
+      theme: ThemeData( 
         primarySwatch: Colors.blueGrey,
         textTheme: const TextTheme(
           displayLarge: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold),
@@ -575,8 +575,16 @@ class _HomePageState extends State<HomePage> {
     if (renderBox != null) {
       final offset = renderBox.localToGlobal(Offset.zero,
           ancestor: context.findRenderObject());
+      double maxScrollExtent = _scrollController.position.maxScrollExtent;
+      double targetPosition = offset.dy + _scrollController.offset - kToolbarHeight;
+
+      // Adjust the target position if it exceeds the maximum scrollable extent
+      if (targetPosition > maxScrollExtent) {
+        targetPosition = maxScrollExtent;
+      }
+
       _scrollController.animateTo(
-        offset.dy + _scrollController.offset - kToolbarHeight,
+        targetPosition,
         duration: const Duration(seconds: 1),
         curve: Curves.easeInOut,
       );
