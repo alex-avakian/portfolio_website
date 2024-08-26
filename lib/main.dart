@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget { // Changed to StatelessWidget
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'RV Aerospace',
+      title: 'Portfolio Website',
       theme: ThemeData( 
         primarySwatch: Colors.blueGrey,
         textTheme: const TextTheme(
@@ -46,6 +46,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _hoveredIndex = -1;
+  int _selectedIndex = -1; // Add for selected index
   final ScrollController _scrollController = ScrollController();
   final GlobalKey _aboutMeKey = GlobalKey();
   final GlobalKey _educationKey = GlobalKey();
@@ -310,20 +311,23 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 20),
                       _buildEducationItem(
                         'assets/school_logo1.jpg',
-                        'School Name 1',
-                        'BTech in Aerospace Engineering\nGPA: 3.8\n2015 - 2019',
+                        'California State Polytechnic University, Pomona',
+                        'Bachelors of Science - Aerospace Engineering \n2017 - 2013\nGPA: 3.2',
                         [
+                          'Technical Courses: '
                           'Advanced Aerodynamics',
                           'Flight Mechanics',
                           'Propulsion Systems',
                           'Aircraft Structures'
+                          '\n\nSystems Related Courses: '
+                          'Fundamentals of System Engineering'
                         ],
                       ),
                       const SizedBox(height: 20),
                       _buildEducationItem(
                         'assets/school_logo2.jpg',
-                        'School Name 2',
-                        'MEng in Aerospace Engineering\nGPA: 3.9\n2019 - 2021',
+                        'California State Polytechnic University, Pomona',
+                        'Masters of Science - Systems Engineering\n2023 - 2025\nGPA: 4.0',
                         [
                           'Spacecraft Design',
                           'Orbital Mechanics',
@@ -366,10 +370,10 @@ class _HomePageState extends State<HomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildProjectBox('assets/project1.jpg', 'Project 1 Title', 'https://drive.google.com/drive/folders/1KEWp_wwPiVi3esawHfHRjir7Vwp1mYWH?usp=drive_link'), 
-                          _buildProjectBox('assets/project2.jpg', 'Project 2 Title', 'https://www.google.com/'), 
-                          _buildProjectBox('assets/project3.jpg', 'Project 3 Title', 'https://www.google.com/'), 
-                          _buildProjectBox('assets/project4.jpg', 'Project 4 Title', 'https://www.google.com/'), 
+                          _buildProjectBox('assets/project1.jpg', 'SciNAP: Science and Network Access Platform', 'https://drive.google.com/drive/folders/1KEWp_wwPiVi3esawHfHRjir7Vwp1mYWH?usp=drive_link'), 
+                          _buildProjectBox('assets/project2.jpg', 'SysML - Falcon 9 Case Study', 'https://drive.google.com/drive/folders/1_o3YHjSwLn1hPQx8gG2c6jCgMSCcxz7a?usp=drive_link'), 
+                          _buildProjectBox('assets/project3.jpg', 'Singularity 2021 - 2022', 'https://drive.google.com/drive/folders/1BhO1MYspJKonmiuvp6OFggDxQ7QH2Qaz?usp=drive_link'), 
+                          _buildProjectBox('assets/project4.jpg', 'Singularity 2020 - 2021', 'https://drive.google.com/drive/folders/1n8cKeEhJ0Ghrlh7cmq2rCHlnoSiy-R9H?usp=drive_link'), 
                         ],
                       ),
                     ],
@@ -393,30 +397,124 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 10),
-                      Text(
-                        'Skills',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge!
-                            .copyWith(
-                                color: Colors.amber[800], fontSize: 28),
-                      ),
-                      const SizedBox(height: 20),
-                      SizedBox(
-                        height: 150, // Adjust height as needed
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            _buildSkillItem('assets/skill1.png', 'Skill 1'),
-                            _buildSkillItem('assets/skill2.png', 'Skill 2'),
-                            _buildSkillItem('assets/skill3.png', 'Skill 3'),
-                            _buildSkillItem('assets/skill4.png', 'Skill 4'),
-                          ],
+                      Center( // Center "Skills" title
+                        child: Text(
+                          'Skills',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                  color: Colors.amber[800], fontSize: 28),
                         ),
                       ),
+                      const SizedBox(height: 10), 
+                      const Text('Software Proficiencies',
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text('• MAGIC SYSTEMS OF SYSTEMS ARCHITECTURE',
+                                    style: TextStyle(color: Colors.grey)),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text('• GENESYS', style: TextStyle(color: Colors.grey)),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text('• ARENA SIMULATION SOFTWARE',
+                                    style: TextStyle(color: Colors.grey)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text('• VENSIM', style: TextStyle(color: Colors.grey)),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text('• GEPHI', style: TextStyle(color: Colors.grey)),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text('• LOGIX PRO 500 PLC SIMULATOR',
+                                    style: TextStyle(color: Colors.grey)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      const Text('Programming Languages',
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text('• JAVA', style: TextStyle(color: Colors.grey)),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text('• MATLAB', style: TextStyle(color: Colors.grey)),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text('• C++', style: TextStyle(color: Colors.grey)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
                     ],
                   ),
                 ),
@@ -475,50 +573,73 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildNavItem(String text, int index, VoidCallback? onTap,
       [IconData? icon]) {
-    return InkWell(
-      onTap: onTap,
-      onHover: (isHovering) {
-        _onHover(isHovering ? index : -1);
+    return MouseRegion( // Wrap with MouseRegion for hover effects
+      onEnter: (_) {
+        setState(() {
+          _hoveredIndex = index;
+        });
       },
-      child: Container(
-        padding:
-            const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-          border: _hoveredIndex == index
-              ? Border.all(color: Colors.white, width: 2) // Highlighting effect
-              : null,
-        ),
-        child: Row(
-          children: [
-            if (icon != null) ...[
-              Icon(icon,
-                  color: _hoveredIndex == index ? Colors.white : Colors.white),
-              if (text.isNotEmpty) const SizedBox(width: 5),
-            ],
-            if (text.isNotEmpty)
-              Text(
-                text,
-                style: TextStyle(
-                  color: _hoveredIndex == index ? Colors.white : Colors.white,
-                  fontFamily: 'Roboto',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
+      onExit: (_) {
+        setState(() {
+          _hoveredIndex = -1;
+        });
+      },
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            _selectedIndex = index; // Update selected index on tap
+          });
+          onTap?.call();
+
+          // Reset the selected index after a short delay
+          Future.delayed(const Duration(milliseconds: 160), () {
+            setState(() {
+              _selectedIndex = -1; 
+            });
+          });
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+            border: Border.all(
+              color: _hoveredIndex == index || _selectedIndex == index // Highlight if hovered or selected
+                  ? Colors.white
+                  : Colors.transparent, 
+              width: 2,
+            ),
+            color: _selectedIndex == index ? Colors.white : Colors.transparent, // Fill color when selected
+          ),
+          child: Row(
+            children: [
+              if (icon != null) ...[
+                Icon(icon, color: _selectedIndex == index ? Colors.black : Colors.white), // Icon color based on selection
+                if (text.isNotEmpty) const SizedBox(width: 5),
+              ],
+              if (text.isNotEmpty)
+                Text(
+                  text,
+                  style: TextStyle(
+                    color: _selectedIndex == index ? Colors.black : Colors.white, // Text color based on selection
+                    fontFamily: 'Roboto',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
   // Helper function to build social icons
-  Widget _buildSocialIcon(IconData icon, String link, [Color iconColor = Colors.amber]) { // Added optional color parameter
+  Widget _buildSocialIcon(IconData icon, String link, [Color iconColor = Colors.amber]) { 
     return IconButton(
       iconSize: 48,
       onPressed: () async {
         if (link.startsWith('www.')) { 
-          link = 'https://$link'; // Add https:// if it's missing
+          link = 'https://$link'; 
         }
         final Uri url = Uri.parse(link);
         if (await canLaunchUrl(url)) {
@@ -527,7 +648,7 @@ class _HomePageState extends State<HomePage> {
           print('Could not launch $link'); 
         }
       },
-      icon: FaIcon(icon, color: iconColor), // Use the provided color or default to amber
+      icon: FaIcon(icon, color: iconColor), 
     );
   }
 
@@ -713,29 +834,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Widget for individual skill items
-  Widget _buildSkillItem(String imageAsset, String skillName) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            imageAsset,
-            width: 80,
-            height: 80,
-            fit: BoxFit.contain,
-          ),
-          const SizedBox(height: 10),
-          Text(
-            skillName,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(color: Colors.grey[700]),
-          ),
-        ],
-      ),
-    );
-  }
+  // Removed the _buildSkillItem widget
 }
