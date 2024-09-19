@@ -312,15 +312,17 @@ class _HomePageState extends State<HomePage> {
                       _buildEducationItem(
                         'assets/school_logo1.jpg',
                         'California State Polytechnic University, Pomona',
-                        'Bachelors of Science - Aerospace Engineering \n2017 - 2013\nGPA: 3.2',
+                        'Bachelors of Science - Aerospace Engineering \n2017 - 2023\nGPA: 3.2',
                         [
-                          'Technical Courses: '
+                          'Technical Courses:', 
                           'Advanced Aerodynamics',
                           'Flight Mechanics',
                           'Propulsion Systems',
-                          'Aircraft Structures'
-                          '\n\nSystems Related Courses: '
-                          'Fundamentals of System Engineering'
+                          'Aircraft Structures',
+                          '\nSystems Related Courses:',
+                          'Fundamentals of System Engineering',
+                          'Program Management', 
+                          'Model Based System Architecture'
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -370,8 +372,8 @@ class _HomePageState extends State<HomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildProjectBox('assets/project1.jpg', 'SciNAP: Science and Network Access Platform', 'https://drive.google.com/drive/folders/1KEWp_wwPiVi3esawHfHRjir7Vwp1mYWH?usp=drive_link'), 
-                          _buildProjectBox('assets/project2.jpg', 'SysML - Falcon 9 Case Study', 'https://drive.google.com/drive/folders/1_o3YHjSwLn1hPQx8gG2c6jCgMSCcxz7a?usp=drive_link'), 
+                          _buildProjectBox('assets/project1.jpg', 'SciNAP: Science and Network Access Platform', 'https://drive.google.com/drive/folders/1KEWp_wwPiVi3esawHfHRjir7Vwp1mYWH?usp=drive_link', textAlign: TextAlign.center), // Added textAlign
+                          _buildProjectBox('assets/project2.jpg', 'SysML - Falcon 9 Case Study', 'https://drive.google.com/drive/folders/1_o3YHjSwLn1hPQx8gG2c6jCgMSCcxz7a?usp=drive_link', textAlign: TextAlign.center), // Added textAlign
                           _buildProjectBox('assets/project3.jpg', 'Singularity 2021 - 2022', 'https://drive.google.com/drive/folders/1BhO1MYspJKonmiuvp6OFggDxQ7QH2Qaz?usp=drive_link'), 
                           _buildProjectBox('assets/project4.jpg', 'Singularity 2020 - 2021', 'https://drive.google.com/drive/folders/1n8cKeEhJ0Ghrlh7cmq2rCHlnoSiy-R9H?usp=drive_link'), 
                         ],
@@ -756,20 +758,54 @@ class _HomePageState extends State<HomePage> {
                       .copyWith(color: Colors.grey[700]),
                 ),
                 const SizedBox(height: 10),
-                Text(
-                  'Relevant Coursework:',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(color: Colors.amber[800]),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  coursework.join(', '),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(color: Colors.grey[700]),
+                // Create two columns for coursework
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Technical Courses column
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: coursework
+                                .sublist(0, 4) // Take the first 4 items (Corrected the range)
+                                .map((course) => Text(
+                                      '• $course',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(color: Colors.grey[700]),
+                                    ))
+                                .toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Systems Related Courses column
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: coursework
+                                .sublist(4) // Take items from index 4 onwards
+                                .map((course) => Text(
+                                      '• $course',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(color: Colors.grey[700]),
+                                    ))
+                                .toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -779,7 +815,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildProjectBox(String imageAsset, String title, String link) {
+  Widget _buildProjectBox(String imageAsset, String title, String link, {TextAlign textAlign = TextAlign.left}) { // Added textAlign parameter
     return MouseRegion(
       onEnter: (_) => setState(() {
         _hoveredIndex = title.hashCode; // Use title for hover index
@@ -811,7 +847,7 @@ class _HomePageState extends State<HomePage> {
             boxShadow: [
               BoxShadow(
                 color: _hoveredIndex == title.hashCode
-                    ? Colors.amber.withOpacity(0.8)
+                    ? Colors.white.withOpacity(0.8) // Changed highlight color to white
                     : Colors.grey.withOpacity(0.3),
                 spreadRadius: 2,
                 blurRadius: 7,
@@ -819,13 +855,21 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          child: Center( // Center the title text
+          child: Center( 
             child: AnimatedOpacity(
               opacity: _hoveredIndex == title.hashCode ? 1.0 : 0.0, 
               duration: const Duration(milliseconds: 300),
-              child: Text(
-                title,
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.7), 
+                  borderRadius: BorderRadius.circular(10), 
+                ),
+                child: Text(
+                  title,
+                  textAlign: textAlign, // Use the textAlign parameter
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white),
+                ),
               ),
             ),
           ),
